@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Coffee Sales Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        form {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+            margin-bottom: 10px;
+        }
+        select, input[type="number"] {
+            width: 200px;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9f7ef;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Coffee Sales Predictor</h1>
+    
+    <form action="/predict" method="post">
+        <label for="city">City:</label>
+        <select id="city" name="city" required>
+            <option value="Riyadh">Riyadh</option>
+            <option value="Abha">Abha</option>
+            <option value="Tabuk">Tabuk</option>
+            <option value="Hail">Hail</option>
+            <option value="Mecca">Mecca</option>
+            <option value="Medina">Medina</option>
+            <option value="Dammam">Dammam</option>
+            <option value="Jeddah">Jeddah</option>
+            <option value="Buraidah">Buraidah</option>
+            <option value="Khobar">Khobar</option>
+        </select><br><br>
+        
+        <label for="product">Product:</label>
+        <select id="product" name="product" required>
+            <option value="Colombian">Colombian</option>
+            <option value="Costa Rica">Costa Rica</option>
+            <option value="Ethiopian">Ethiopian</option>
+            <option value="Brazilian">Brazilian</option>
+            <option value="Guatemalan">Guatemalan</option>
+        </select><br><br>
+        
+        <label for="unit_price">Unit Price (SAR):</label>
+        <input type="number" id="unit_price" name="unit_price" step="0.01" min="0" required><br><br>
+        
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" min="1" required><br><br>
+        
+        <input type="submit" value="Predict Sales">
+    </form>
+    
+    {% if prediction_text %}
+    <div class="result">
+        <h3>{{ prediction_text }}</h3>
+        {% if city and product and unit_price and quantity %}
+        <p>Input details:</p>
+        <ul>
+            <li>City: {{ city }}</li>
+            <li>Product: {{ product }}</li>
+            <li>Unit Price: SAR {{ unit_price }}</li>
+            <li>Quantity: {{ quantity }}</li>
+        </ul>
+        {% endif %}
+    </div>
+    {% endif %}
+</body>
+</html>
